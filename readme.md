@@ -6,4 +6,5 @@
 * Spring boot: 1.5.6.RELEASE
 * netty: 4.1.13.Final
 
-
+---
+参考 [JTaoZh/netty-spring-boot-starter-test](https://github.com/JTaoZh/netty-spring-boot-starter-test)
