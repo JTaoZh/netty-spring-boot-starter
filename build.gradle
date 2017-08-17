@@ -1,5 +1,5 @@
 group 'com.jtao.server'
-version '1.0'
+version '1.1'
 
 buildscript{
     ext.spring_boot_version = '1.5.6.RELEASE'

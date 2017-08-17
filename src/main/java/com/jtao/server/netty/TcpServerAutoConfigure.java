@@ -24,6 +24,8 @@ public class TcpServerAutoConfigure {
                 properties.getChannelHandlers(),
                 properties.getParentThread(),
                 properties.getChildThread(),
+                properties.getOption(),
+                properties.getChildOption(),
                 tcpRepository()
         );
     }

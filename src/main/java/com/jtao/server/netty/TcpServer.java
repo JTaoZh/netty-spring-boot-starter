@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 
 public class TcpServer extends Thread{
 
@@ -17,6 +18,8 @@ public class TcpServer extends Thread{
     private List<ChannelHandler> channelHandlers;
     private int parentThread;
     private int childThread;
+    private Map<Object, Object> option;
+    private Map<Object, Object> childOption;
     private TcpRepository tcpRepository;
 
     public TcpServer() {
@@ -26,11 +29,15 @@ public class TcpServer extends Thread{
                      List<ChannelHandler> channelHandlers,
                      int parentThread,
                      int childThread,
+                     Map<Object, Object> option,
+                     Map<Object, Object> childOption,
                      TcpRepository tcpRepository) {
         this.tcpPort = tcpPort;
         this.channelHandlers = channelHandlers;
         this.parentThread = parentThread;
         this.childThread = childThread;
+        this.option = option;
+        this.childOption = childOption;
         this.tcpRepository = tcpRepository;
     }
 
@@ -50,8 +57,10 @@ public class TcpServer extends Thread{
                         channelHandlers.forEach(pipeline::addLast);
                     }
                 });
-        b.option(ChannelOption.SO_BACKLOG, 128);
-        b.childOption(ChannelOption.TCP_NODELAY, true);
+        option.forEach((k,v)->b.option((ChannelOption<Object>) k, v));
+        childOption.forEach((k,v)->b.childOption((ChannelOption<Object>) k, v));
+//        b.option(ChannelOption.SO_BACKLOG, 128);
+//        b.childOption(ChannelOption.TCP_NODELAY, true);
         try {
             ChannelFuture cf = b.bind(tcpPort).sync();
             logger.info("tcp server running on " + tcpPort);
