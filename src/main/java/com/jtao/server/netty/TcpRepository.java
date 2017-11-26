@@ -10,8 +10,8 @@ import java.util.HashMap;
 public class TcpRepository {
     private HashMap<String, ChannelHandlerContext> map = new HashMap<>();
 
-    public void add(String channelKey, ChannelHandlerContext channel){
-        map.put(channelKey, channel);
+    public void add(String channelKey, ChannelHandlerContext ctx){
+        map.put(channelKey, ctx);
     }
 
     public void delete(String channelKey){

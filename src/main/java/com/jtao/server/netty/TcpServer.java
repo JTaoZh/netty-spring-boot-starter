@@ -74,11 +74,11 @@ public class TcpServer extends Thread{
     }
 
     public String putMsg(String channelKey, byte[] msg){
-        Channel channel = tcpRepository.find(channelKey);
-        if (channel == null){
+        ChannelHandlerContext ctx = tcpRepository.find(channelKey);
+        if (ctx == null){
             return "No channel";
         } else {
-            channel.writeAndFlush(Unpooled.wrappedBuffer(msg));
+            ctx.writeAndFlush(Unpooled.wrappedBuffer(msg));
             return "Ok";
         }
     }
